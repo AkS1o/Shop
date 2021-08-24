@@ -1,0 +1,55 @@
+﻿@model Shop.Models.ViewModels.DetailsVM
+
+<div class="page-title">
+    <div class="container">
+        <h1>Details Product</h1>
+    </div>
+</div>
+
+<section class="product-details">
+    <div class="container my-5">
+        <h3 class="product-title">@Model.Product.Name</h3>
+        <div class="row mb-5">
+            <div class="col-6">
+                <img src="@ENV.ImagePath@Model.Product.Image" class="img-fluid" />
+            </div>
+            <div class="product-data">
+                <div class="product-meta">@Model.Product.Category.Name</div>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="product-price">@Model.Product.Price &#8372;</p>
+                <form method="post">
+                    <input asp-for="@Model.Product.Id" hidden />
+                    @if (Model.InCart)
+                    {
+                        <a asp-action="RemoveFromCart" asp-route-id="@Model.Product.Id" class="btn btn-outline-primary">Remove product from cart</a>
+                    }
+                    else
+                    {
+                        <button type="submit" asp-route-id="@Model.Product.Id" class="btn btn-outline-primary">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add product to cart
+                        </button>
+                    }
+                </form>
+            </div>
+        </div>
+        <div class="mb-5">
+            @Html.Raw(Model.Product.ShortDesc)
+        </div>
+        <div class="mb-5">
+            @Html.Raw(Model.Product.Description)
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

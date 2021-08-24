@@ -1,0 +1,47 @@
+﻿@model Shop.Models.ViewModels.HomeVM
+
+<div class="page-title">
+    <div class="container">
+        <h1>Shop</h1>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <aside class="col-3">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success btn-filter" data-filter="all">All</button>
+                @foreach (var item in Model.Categories)
+                {
+                    <button type="button" class="btn btn-success btn-filter" data-filter="@item.Name.Replace(" ", "_")">@item.Name</button>
+                }
+            </div>
+        </aside>
+        <div class="col-9">
+            <section class="product-card">
+                <div class="row">
+                    @foreach (var item in Model.Products)
+                    {
+                        <partial name="_ProductCard" model="item" />
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".btn-filter").click(function () {
+                let value = $(this).attr('data-filter');
+                if (value == "all") {
+                    $('.filter').show('1000');
+                } else {
+                    $('.filter').not('.' + value).hide('3000');
+                    $('.filter').filter('.' + value).show('3000');
+                }
+            })
+        })
+    </script>
+}

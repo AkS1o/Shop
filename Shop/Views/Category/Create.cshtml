@@ -1,0 +1,52 @@
+﻿@model Shop.Models.Category
+
+
+<div class="page-title">
+    <div class="container">
+        <h1>Category Delete</h1>
+    </div>
+</div>
+
+<div class="container my-5">
+    <form method="post" asp-action="Create" asp-controller="Category">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-8">
+
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Name" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                        <label asp-for="ShowOrder"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ShowOrder" class="form-control" />
+                        <span class="text-danger" asp-validation-for="ShowOrder"></span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <input type="submit" class="btn btn-outline-secondary mx-2" value="Create" />
+            <a asp-action="Index" class="btn btn-outline-primary mx-2">Back</a>
+        </div>
+
+    </form>
+</div>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+} 

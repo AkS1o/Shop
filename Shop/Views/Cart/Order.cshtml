@@ -1,0 +1,80 @@
+﻿@model Shop.Models.ViewModels.ProductUserVM
+
+<div class="page-title">
+    <div class="container">
+        <h1>Order</h1>
+    </div>
+</div>
+
+<div class="container my-5">
+    <form method="post">
+        <div class="row">
+            <div class="col-7">
+                <h3>Billing Details</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="AppUser.Name"></label>
+                            <input class="form-control" asp-for="AppUser.Name" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="AppUser.Surname"></label>
+                            <input class="form-control" asp-for="AppUser.Surname" />
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label asp-for="AppUser.Email"></label>
+                            <input class="form-control" asp-for="AppUser.Email" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <h3>Order Items (@Model.ProductList.Count)</h3>
+                <div class="product-list product-order-list">
+                    @foreach (var item in Model.ProductList)
+                    {
+                        <div class="item">
+                            <div class="image-wrap">
+                                <img src="@ENV.ImagePath@item.Image" class="img-fluid" />
+                            </div>
+                            <div class="product-data">
+                                <h6 class="product-title">@item.Name</h6>
+                                <h4 class="product-price">@item.Price &#8372;</h4>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="order-totals">
+                    @{
+                        double subtotal = 0;
+                        double shipping = 100;
+                        foreach (var item in Model.ProductList)
+                            subtotal += item.Price;
+                        double total = shipping + subtotal;
+                    }
+                    <div class="item">
+                        <p>Subtotal:</p>
+                        <p>@subtotal &#8372;</p>
+                    </div>
+                    <div class="item">
+                        <p>Shipping:</p>
+                        <p>@shipping&#8372;</p>
+                    </div>
+                    <div class="item">
+                        <p>Total:</p>
+                        <p>@total &#8372;</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-outline-primary">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

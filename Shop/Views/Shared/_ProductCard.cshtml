@@ -1,0 +1,27 @@
+﻿@model Shop.Models.Product
+
+<div class="col-4 filter @Model.Category.Name.Replace(" ","_")">
+    <div class="card">
+        <div class="image-wrap">
+            <img src="@ENV.ImagePath@Model.Image" />
+        </div>
+        <div class="product-body">
+            @*<div class="product-meta">@Model.Product.Category.Name</div>*@
+            <h5 class="product-title">@Model.Name</h5>
+            <div class="product-data">
+                <p class="product-price">@Model.Price &#8372;</p>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="product-text">
+                @Html.Raw(@Model.ShortDesc)
+            </div>
+            <a class="btn btn-outline-info" asp-route-id="@Model.Id" asp-controller="Home" asp-action="Details">View Details</a>
+        </div>
+    </div>
+</div>

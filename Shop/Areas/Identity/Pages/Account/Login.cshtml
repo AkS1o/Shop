@@ -1,0 +1,50 @@
+﻿@page
+@model LoginModel
+
+<div class="page-title">
+    <div class="container">
+        <h1>Login</h1>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="col-5">
+            <form id="account" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="form-check">
+                        <input id="rememberMe" asp-for="Input.RememberMe" />
+                        <label for="rememberMe" asp-for="Input.RememberMe">@Html.DisplayNameFor(m => m.Input.RememberMe)</label>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-primary">Log in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

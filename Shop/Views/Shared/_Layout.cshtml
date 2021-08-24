@@ -1,0 +1,104 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using Shop.Services
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Shop</title>
+
+    <!--<link rel="stylesheet" href="~/css/site.css" /> -->
+    <!-- include style -->
+    <link rel="stylesheet" href="~/css/style.css" />
+
+    <!-- include Bootstrap Grid -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />
+
+    <!-- include summernote css -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
+    <!-- include Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-wrap">
+                <div class="logo">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Mahazyn</a>
+                </div>
+                <nav class="navbar">
+                    <ul>
+                        <li>
+                            <a class="nav-item" asp-area="" asp-action="Index" asp-controller="Home">Home</a>
+                        </li>
+                        @if (User.IsInRole(Shop.ENV.AdminRole))
+                        {
+                            <li>
+                                <a class="nav-item" asp-area="" asp-action="Index" asp-controller="Category">Category</a>
+                            </li>
+                            <li>
+                                <a class="nav-item" asp-area="" asp-action="Index" asp-controller="Product">Product</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul>
+                        <li class="navbar-tool">
+                            @if (HttpContextAccessor.HttpContext.Session.Get<List<Cart>>(ENV.SessinCart) != null)
+                            {
+                                <a class="navbar-tool-wrap" asp-area="" asp-action="Index" asp-controller="Cart">
+                                    @{
+                                        var count = HttpContextAccessor.HttpContext.Session.Get<List<Cart>>(ENV.SessinCart).Count();
+                                    }
+                                    <i class="fas fa-shopping-cart"></i>
+                                    @if (@count > 0)
+                                    {
+                                        <span class="navbar-tool-label">@count</span>
+                                    }
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="navbar-tool-wrap" asp-action="Index" asp-controller="Cart"><i class="fas fa-shopping-cart"></i></a>
+                            }
+                        </li>
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- include libraries jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+    <!-- include Font Awesome -->
+    <script src="https://kit.fontawesome.com/a6ca4f91fd.js" crossorigin="anonymous"></script>
+
+    <!-- include summernote js -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

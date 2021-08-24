@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="dropdown navbar-tool">
+        <a class="navbar-tool-wrap" href="#">
+            <i class="fas fa-user"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Hello @UserManager.GetUserName(User)!</a>
+            </li>
+            @if (User.IsInRole(Shop.ENV.AdminRole))
+            {
+                <li>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Create new admin</a>
+                </li>
+            }
+            <li>
+                <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" class="dropdown-item" type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </li>
+}
+else
+{
+    <li class="dropdown">
+        <a class="navbar-tool-wrap" href="#">
+            <i class="fas fa-user"></i>
+        </a>
+        <ul class="dropdown-menu active">
+            <li>
+                <a class="dropdown-item" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+            <li>
+                <a class="dropdown-item" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+        </ul>
+    </li>
+}
